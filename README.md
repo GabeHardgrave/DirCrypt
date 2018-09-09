@@ -5,7 +5,7 @@ A CLI for creating encrypted copies of unix directories
 
 `dircrypt.py` is a fast, simple utility for creating encrypted and decrypted copies of Unix directories and Windows folders. This is useful if you want to safely upload files to a untrusted source, such as a public FTP server. `dircrypt.py` works on all file types and formats, and can encrypt arbitrarily large files.
 
-Since encryption (and security more generally) is non-trivial, **I make no strong claims about the security of this application**. That being said, any feedback, security related or otherwise, is extremely welcome.
+Since encryption (and security more generally) is non-trivial, I make no strong claims about the security of this application. That being said, any feedback, security related or otherwise, is extremely welcome.
 
 ## Usage
 The docopt usage string is as follows:
@@ -28,13 +28,13 @@ Options:
 
 `<target>` can be a relative or absolute path to either a file or a directory/folder.
 
-By default, dircrypt will query the user for a password, which will be used to derive the underlying keys used in (en|de)cryption. `--gen` overrides this behavior, and generates a new file, `dircrypt.password`, containing the generated password.
+By default, dircrypt will use a user-defined password to derive the underlying keys (en|de)cryption. `--gen` overrides this behavior, and generates a new file, `dircrypt.password`, containing the generated key.
 
 All (en|de)crypted copies are written to an output folder, aptly titled `[ENCRYPTED|DECRYPTED]_OUTPUT`, depending on which mode you chose. `--as=<output>` overrides this behavior.
 
 ## Protocol
 
-Files are encrypted in discreet "chunks" of at most 2^14 bytes (this is strictly for usability, so that files too large to fit into memory can still be encrypted). File names, directory names, subdirectory names, and file contents are all encrypted as seperate messages.
+Files are encrypted in discreet "chunks" of at most 2^14 bytes (so that files too large to fit into memory can still be traversed). File names, directory names, subdirectory names, and file contents are all encrypted as seperate messages.
 
 Messages are encrypted and authenticated using [ChaCha20-Poly1305](https://cryptography.io/en/latest/hazmat/primitives/aead/#cryptography.hazmat.primitives.ciphers.aead.ChaCha20Poly1305).
 
@@ -53,4 +53,4 @@ Decryption is then a straightforward reversal.
 
 If decryption fails for a given file name or directory name, the output file is labeled as malformed, but dircrypt will continue to attempt to decrypt the file's contents or directory's files.
 
-If decryption fails for a given file's *contents*, dircrypt stops decryption for that file immedietly and labels the parent file as malformed.
+If decryption fails for a given file's *contents*, dircrypt stops decryption for that file and labels the file as malformed.
