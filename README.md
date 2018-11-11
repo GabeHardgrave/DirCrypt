@@ -1,9 +1,9 @@
 # DirCrypt
-A CLI for creating encrypted copies of unix directories
+A simple utility for creating encrypted copies of files and directories
 
 ## About
 
-`dircrypt.py` is a fast, simple utility for creating encrypted and decrypted copies of Unix directories and Windows folders. This is useful if you want to safely upload files to a untrusted source, such as a public FTP server. `dircrypt.py` works on all file types and formats, and can encrypt arbitrarily large files.
+`dircrypt.py` is a fast, simple utility for creating encrypted copies of Unix directories and Windows folders. This is useful if you want to safely upload files to a untrusted source, such as a public FTP server. `dircrypt.py` works on all file types and formats, and can encrypt arbitrarily large files.
 
 Since encryption (and security more generally) is non-trivial, I make no strong claims about the security of this application. That being said, any feedback, security related or otherwise, is extremely welcome.
 
@@ -34,7 +34,7 @@ All (en|de)crypted copies are written to an output folder, aptly titled `[ENCRYP
 
 ## Protocol
 
-Files are encrypted in discreet "chunks" of at most 2^14 bytes (so that files too large to fit into memory can still be traversed). File names, directory names, subdirectory names, and file contents are all encrypted as seperate messages.
+Files are encrypted in discreet "chunks" of at most 2^14 bytes. File names, directory names, subdirectory names, and file contents are all encrypted as seperate messages.
 
 Messages are encrypted and authenticated using [ChaCha20-Poly1305](https://cryptography.io/en/latest/hazmat/primitives/aead/#cryptography.hazmat.primitives.ciphers.aead.ChaCha20Poly1305).
 
